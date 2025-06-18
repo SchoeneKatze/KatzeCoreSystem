@@ -2,6 +2,7 @@ package com.coresystem.KatzeCoreSystem.Services;
 
 import com.coresystem.KatzeCoreSystem.Entities.User ;
 import com.coresystem.KatzeCoreSystem.Repositories.UserRepository ;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -44,8 +45,15 @@ public class UserService {
         Set<String> defaultRoles = new HashSet<>();
         defaultRoles.add("ROLE_USER");
         user.setRoles(defaultRoles);
+        user.setPassword(passencode(user.getPassword()));
 
         return userRepository.save(user);
+    }
+
+    public String passencode(String rawPass) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.encode(rawPass);
+        // Example output: $2a$10$f/X... (long string)
     }
 
     /**

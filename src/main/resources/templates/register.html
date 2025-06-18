@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for an Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .register-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+        .register-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="password"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            transition: background-color 0.2s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        #responseMessage {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
+        #responseMessage.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        #responseMessage.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+<div class="register-container">
+    <h2>Create New Account</h2>
+    <form id="registerForm">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="50">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required maxlength="100">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="6" maxlength="100">
+        </div>
+        <button type="submit">Register</button>
+    </form>
+    <div id="responseMessage"></div>
+    <br><br><a href="index.html" class="link-text">Home page</a>
+    <br><br><a href="login.html" class="link-text">Login page</a>
+</div>
+
+<script>
+    document.getElementById('registerForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const responseMessage = document.getElementById('responseMessage');
+
+        // Clear previous messages
+        responseMessage.style.display = 'none';
+        responseMessage.className = '';
+        responseMessage.textContent = '';
+
+        const backendApiUrl = 'http://localhost:8080/api/auth/register'; // *** IMPORTANT: Replace with your actual backend URL ***
+
+        try {
+            const response = await fetch(backendApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, email, password }),
+            });
+
+            if (response.ok) { // Check if status is 2xx (e.g., 200 OK, 201 Created)
+                const message = await response.text(); // Or response.json() if your backend sends JSON on success
+                responseMessage.textContent = message || 'Account created successfully!';
+                responseMessage.classList.add('success');
+            } else {
+                const errorText = await response.text(); // Get raw error message
+                responseMessage.textContent = errorText || 'Failed to create account. Please try again.';
+                responseMessage.classList.add('error');
+            }
+        } catch (error) {
+            console.error('Network or CORS error:', error);
+            responseMessage.textContent = 'Could not connect to the server. Please check your network or CORS settings.';
+            responseMessage.classList.add('error');
+        } finally {
+            responseMessage.style.display = 'block';
+        }
+    });
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Create New Account</title>-->
+<!--    &lt;!&ndash; Tailwind CSS CDN &ndash;&gt;-->
+<!--    <script src="https://cdn.tailwindcss.com"></script>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: 'Inter', sans-serif;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            min-height: 100vh;-->
+<!--            background-color: #f0f2f5;-->
+<!--        }-->
+<!--        .register-container {-->
+<!--            max-width: 400px;-->
+<!--            width: 90%;-->
+<!--            background-color: #ffffff;-->
+<!--            padding: 2.5rem;-->
+<!--            border-radius: 0.75rem;-->
+<!--            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--        .input-field {-->
+<!--            width: 100%;-->
+<!--            padding: 0.75rem;-->
+<!--            margin-bottom: 1rem;-->
+<!--            border: 1px solid #d1d5db;-->
+<!--            border-radius: 0.5rem;-->
+<!--            box-sizing: border-box; /* Include padding in width */-->
+<!--        }-->
+<!--        .button {-->
+<!--            width: 100%;-->
+<!--            padding: 0.75rem;-->
+<!--            border-radius: 0.5rem;-->
+<!--            font-weight: 600;-->
+<!--            cursor: pointer;-->
+<!--            transition: background-color 0.3s ease;-->
+<!--        }-->
+<!--        .button-primary {-->
+<!--            background-color: #4f46e5;-->
+<!--            color: white;-->
+<!--        }-->
+<!--        .button-primary:hover {-->
+<!--            background-color: #4338ca;-->
+<!--        }-->
+<!--        .error-message {-->
+<!--            color: #dc2626;-->
+<!--            margin-bottom: 1rem;-->
+<!--            font-size: 0.875rem;-->
+<!--        }-->
+<!--        .success-message {-->
+<!--            color: #16a34a;-->
+<!--            margin-bottom: 1rem;-->
+<!--            font-size: 0.875rem;-->
+<!--        }-->
+<!--        .link-text {-->
+<!--            color: #4f46e5;-->
+<!--            text-decoration: none;-->
+<!--        }-->
+<!--        .link-text:hover {-->
+<!--            text-decoration: underline;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body class="bg-gray-100 flex items-center justify-center min-h-screen">-->
+<!--<div class="register-container bg-white p-10 rounded-xl shadow-lg">-->
+<!--    <h2 class="text-3xl font-bold text-gray-800 mb-6">Create New Account</h2>-->
+
+<!--    &lt;!&ndash; Error/Success Messages &ndash;&gt;-->
+<!--    <div th:if="${errorMessage}" class="error-message">-->
+<!--        <p th:text="${errorMessage}"></p>-->
+<!--    </div>-->
+<!--    <div th:if="${successMessage}" class="success-message">-->
+<!--        <p th:text="${successMessage}"></p>-->
+<!--    </div>-->
+
+<!--    <form th:action="@{/register}" th:object="${registrationRequest}" method="post">-->
+<!--        <div class="mb-4">-->
+<!--            <input type="text" th:field="*{username}" class="input-field" placeholder="Username" required>-->
+<!--        </div>-->
+<!--        <div class="mb-4">-->
+<!--            <input type="email" th:field="*{email}" class="input-field" placeholder="Email" required>-->
+<!--        </div>-->
+<!--        <div class="mb-6">-->
+<!--            <input type="password" th:field="*{password}" class="input-field" placeholder="Password" required>-->
+<!--        </div>-->
+<!--        <button type="submit" class="button button-primary">Register</button>-->
+<!--    </form>-->
+
+<!--    <div class="mt-6 text-gray-600">-->
+<!--        Already have an account? <a href="login.html" class="link-text">Login here</a>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <a href="index.html" class="link-text">Home page</a>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
