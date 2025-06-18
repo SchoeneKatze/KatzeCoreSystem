@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Enterprise System</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+        }
+        .login-container {
+            max-width: 400px;
+            width: 90%;
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .input-field {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            box-sizing: border-box; /* Include padding in width */
+        }
+        .button {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button-primary {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .button-primary:hover {
+            background-color: #4338ca;
+        }
+        .error-message {
+            color: #dc2626;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+        .success-message {
+            color: #16a34a;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+        .link-text {
+            color: #4f46e5;
+            text-decoration: none;
+        }
+        .link-text:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<div class="login-container bg-white p-10 rounded-xl shadow-lg">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Login</h2>
+
+    <!-- Error/Success Messages -->
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <div th:if="${logoutMessage}" class="success-message">
+        <p th:text="${logoutMessage}"></p>
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <div class="mb-4">
+            <input type="text" id="username" name="username" class="input-field" placeholder="Username" required>
+        </div>
+        <div class="mb-6">
+            <input type="password" id="password" name="password" class="input-field" placeholder="Password" required>
+        </div>
+        <button type="submit" class="button button-primary">Login</button>
+    </form>
+
+    <div class="mt-6 text-gray-600">
+        Don't have an account? <a href="register.html" class="link-text">Create new account</a>
+    </div>
+    <br>
+    <a href="index.html" class="link-text">Home page</a>
+</div>
+</body>
+</html>
