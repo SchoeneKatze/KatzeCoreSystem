@@ -1,0 +1,50 @@
+CREATE DATABASE katzecoreDB;
+
+CREATE TABLE USER(
+ ID INTEGER(32) NOT NULL PRIMARY KEY,
+ USERNAME VARCHAR(100) NOT NULL,
+ PASSWORD VARCHAR(50) NOT NULL,
+ EMAIL VARCHAR(50) NOT NULL,
+ ROLE VARCHAR(50)
+ );
+
+
+-- SQL script to create the 'employees' table in MySQL
+CREATE TABLE IF NOT EXISTS `employees` (
+    `employee_id` VARCHAR(50) PRIMARY KEY, -- Unique identifier, e.g., 'EMP-001'
+    `first_name` VARCHAR(100) NOT NULL,
+    `last_name` VARCHAR(100) NOT NULL,
+    `department` VARCHAR(100) NOT NULL,
+    `job_title` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(255) UNIQUE, -- Employee's work email, must be unique
+    `phone_number` VARCHAR(50),
+    `hire_date` DATE NOT NULL,
+    `salary` DECIMAL(10, 2), -- Stores up to 10 digits with 2 decimal places
+    `address` VARCHAR(255),
+    `city` VARCHAR(100),
+    `state_province` VARCHAR(100),
+    `zip_postal_code` VARCHAR(20),
+    `country` VARCHAR(100),
+    `date_of_birth` DATE,
+    `emergency_contact_name` VARCHAR(255),
+    `emergency_contact_phone` VARCHAR(50),
+    `manager_id` VARCHAR(50), -- References another employee's ID (optional foreign key for simplicity, can be added later)
+    `status` VARCHAR(50) DEFAULT 'Active', -- e.g., 'Active', 'On Leave', 'Terminated'
+    `employment_type` VARCHAR(50) DEFAULT 'Full-time', -- e.g., 'Full-time', 'Part-time', 'Contractor'
+    `last_performance_review_date` DATE,
+    `skills` TEXT, -- Stores comma-separated skills or a JSON string
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
+    -- Optional: Add a foreign key constraint for manager_id if you want to enforce referential integrity
+    -- CONSTRAINT `fk_manager`
+    --     FOREIGN KEY (`manager_id`)
+    --     REFERENCES `employees` (`employee_id`)
+    --     ON DELETE SET NULL
+);
+
+-- Indexing for faster search/filter operations
+CREATE INDEX `idx_employee_name` ON `employees` (first_name, last_name);
+CREATE INDEX `idx_employee_department` ON `employees` (department);
+CREATE INDEX `idx_employee_job_title` ON `employees` (job_title);
+CREATE INDEX `idx_employee_email` ON `employees` (email);

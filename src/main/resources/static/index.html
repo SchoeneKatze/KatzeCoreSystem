@@ -35,6 +35,14 @@
         <h1 class="text-3xl font-bold tracking-tight">Your Company Name</h1>
     </div>
 
+    <nav class="flex-grow flex justify-center md:justify-start mx-4">
+        <ul class="flex space-x-6">
+            <li><a href="/" class="text-white hover:text-blue-200 font-medium transition duration-200">Home</a></li>
+            <li><a href="/employees" class="text-white hover:text-blue-200 font-medium transition duration-200">Employees</a></li>
+            <!-- Add other primary navigation links here if needed -->
+        </ul>
+    </nav>
+
     <!-- User Authentication and Navigation -->
     <div class="flex items-center space-x-4">
         <!-- Login Button (Visible when logged out) -->
@@ -75,7 +83,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
         <!-- Card: Employees (Management Only) -->
-        <a href="/employee.html" id="employeesLink" class="module-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out p-6 flex flex-col items-center text-center border border-gray-200 hover:border-blue-400">
+        <a href="/employees" id="employeesLink" class="module-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out p-6 flex flex-col items-center text-center border border-gray-200 hover:border-blue-400">
             <!-- Users icon (Lucide-react: Users) -->
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-lg text-blue-600 mb-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             <h3 class="text-xl font-semibold text-gray-800 mb-2">Employees</h3>
